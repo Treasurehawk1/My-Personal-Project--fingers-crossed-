@@ -31,7 +31,7 @@ public class Menu_Display {
 				case 'V':
 					System.out.print("\033[H\033[2J");  
 					System.out.flush();
-					//System.out.println(List.tasks);
+					
 					System.out.println("Stub for View");// add in a bit
 				break;
 				case 'a':
@@ -39,7 +39,6 @@ public class Menu_Display {
 					System.out.print("\033[H\033[2J");  
 					System.out.flush();
 					List.Add();
-					System.out.println("Stub for Add");// add in a bit
 				break;
 				case 'u':
 				case 'U': 
