@@ -1,0 +1,42 @@
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Set;
+
+public class Spider {
+
+	private static final int MAX_NUMBER_OF_SEARCHES = 15;
+	private Set<String> pagesVisited = new HashSet<String>();
+	private List<String> pagesToVisit = new LinkedList<String>();
+	
+	public void search(String url, String searchWord) {
+		while (this.pagesVisited.size() != MAX_NUMBER_OF_SEARCHES) {
+			String currentUrl;
+			SpiderLeg leg = new SpiderLeg();
+			if (this.pagesToVisit.isEmpty()) {
+				currentUrl = url;
+				this.pagesToVisit.add(url);
+			}
+			else {
+				currentUrl = this.nextUrl();
+			}
+			leg.crawl(currentUrl);
+			if (leg.searchForWord(searchWord)) {
+				System.out.println(String.format("SUCCESS... the word %s has been found in %s", searchWord, currentUrl));
+				break;
+			}
+			this.pagesToVisit.addAll(leg.getLinks());
+		}
+		System.out.println(String.format("DONE... Visited %s web page(s)", this.pagesVisited.size()));
+	}
+
+	private String nextUrl() {
+		String nextUrl;
+		do {
+			nextUrl = this.pagesToVisit.remove(0);
+		} while(this.pagesVisited.contains(nextUrl));
+		this.pagesVisited.add(nextUrl);
+		return nextUrl;
+	}
+	
+}

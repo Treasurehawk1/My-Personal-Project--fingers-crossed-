@@ -11,6 +11,10 @@ public class Spider {
 	private Set<String> pagesVisited = new HashSet<String>();
 	private List<String> pagesToVisit = new LinkedList<String>();
 	
+	// Launch point for spider functionality, Internally it creates spider legs that make an HTTP request and parse the response (the web page).
+	// param url - The starting point of the spider
+	// param searchWord - The word or string that you are searching for
+	
 	public void search(String url, String searchWord) 
 	{
 		while(this.pagesVisited.size() < MAX_PAGES_TO_SEARCH)
@@ -37,6 +41,8 @@ public class Spider {
 		}
 		System.out.println("\n**Done** Visited " + this.pagesVisited.size() + " web page(s)");
 	}
+
+	//Returns the next URL to visit (in the order that they were found). We also do a check to make sure this method doesn't return a URL that has already been visited	
 	private String nextUrl()
 	{
 		String nextUrl;
